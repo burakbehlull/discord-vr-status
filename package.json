@@ -1,0 +1,23 @@
+{
+  "name": "discord-vr-status",
+  "version": "1.0.0",
+  "description": "A simple Discord VR status client",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsx ./client.ts"
+  },
+  "keywords": [],
+  "author": "Burak Behlül <@burakbehlul>",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ws": "^8.21.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "@types/ws": "^8.18.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2"
+  }
+}
