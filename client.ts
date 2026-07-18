@@ -1,8 +1,7 @@
 import WebSocket from 'ws';
-
 import settings from './settings.json' with { type: "json" };
 
-const { GATEWAY_URL, TOKEN, DEBUG, ACTIVITY_NAME, ACTIVITY_TYPE } = settings;
+const { GATEWAY_URL, TOKEN, DEBUG } = settings;
 
 function debugLog(message: string) {
     if (DEBUG) {
@@ -17,11 +16,9 @@ class DiscordClient {
     private lastHeartbeatAck: boolean = true;
     private sequence: number | null = null;
     private heartbeatTimer: NodeJS.Timeout | null = null;
-    private startTime: number;
 
     constructor(token: string) {
         this.token = token;
-        this.startTime = Date.now();
     }
 
     async connect(): Promise<void> {
@@ -77,11 +74,7 @@ class DiscordClient {
                 },
                 "presence": {
                     "status": "online",
-                    "activities": [{
-                        "name": ACTIVITY_NAME,
-                        "type": ACTIVITY_TYPE,
-                        "application_id": "100000000000000000"
-                    }],
+                    "activities": [], // Etkinlik listesi boş, yazı çıkmaz
                     "afk": false
                 },
                 "compress": false
@@ -131,7 +124,7 @@ class DiscordClient {
             this.heartbeatInterval = d.heartbeat_interval;
             console.log("[+] Hello received, starting heartbeat...");
             await this.startHeartbeat();
-            //await this.identify();
+            await this.identify(); // Bağlantı için identify çağrısı aktif edildi
         } 
         else if (op === 11) {
             this.lastHeartbeatAck = true;
@@ -140,23 +133,17 @@ class DiscordClient {
         else if (t === "READY") {
             console.log(`[+] Logged in as ${d.user.username}`);
             
+            // Buradaki presence güncellemesinden de activity kaldırıldı
             await this.sendJson({
                 "op": 3,
                 "d": {
                     "since": 0,
-                    "activities": [{
-                        "name": "Discord VR",
-                        "type": 0,
-                        "application_id": "100000000000000000",
-                        "timestamps": {
-                            "start": this.startTime
-                        }
-                    }],
+                    "activities": [], 
                     "status": "online",
                     "afk": false
                 }
             });
-            console.log("[+] Presence updated with VR Activity");
+            console.log("[+] Presence updated (No Activity)");
             
             await this.sendJson({
                 "op": 4,
