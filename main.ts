@@ -74,7 +74,7 @@ class DiscordClient {
                 },
                 "presence": {
                     "status": "online",
-                    "activities": [], // Etkinlik listesi boş, yazı çıkmaz
+                    "activities": [],
                     "afk": false
                 },
                 "compress": false
@@ -124,7 +124,7 @@ class DiscordClient {
             this.heartbeatInterval = d.heartbeat_interval;
             console.log("[+] Hello received, starting heartbeat...");
             await this.startHeartbeat();
-            await this.identify(); // Bağlantı için identify çağrısı aktif edildi
+            await this.identify();
         } 
         else if (op === 11) {
             this.lastHeartbeatAck = true;
@@ -133,7 +133,6 @@ class DiscordClient {
         else if (t === "READY") {
             console.log(`[+] Logged in as ${d.user.username}`);
             
-            // Buradaki presence güncellemesinden de activity kaldırıldı
             await this.sendJson({
                 "op": 3,
                 "d": {

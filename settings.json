@@ -1,7 +1,5 @@
 {
     "TOKEN": "",
     "GATEWAY_URL": "wss://gateway.discord.gg/?v=9&encoding=json",
-    "DEBUG": false,
-    "ACTIVITY_NAME": "Discord VR",
-    "ACTIVITY_TYPE": 0
+    "DEBUG": false
 }

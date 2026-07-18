@@ -4,7 +4,7 @@
   "description": "A simple Discord VR status client",
   "main": "index.js",
   "scripts": {
-    "start": "npx tsx ./client.ts"
+    "start": "npx tsx ./main.ts"
   },
   "keywords": [],
   "author": "Burak Behlül <@burakbehlul>",
